@@ -38,8 +38,16 @@ class PdfReport:
         self.filename = filename
 
     def generate_pdf(self, flatmate1, flatmate2, bill):
+        # Amount each flatmate has to pay
+        amount_f1 = round(flatmate1.pays(bill, flatmate2), 2)
+        amount_f2 = round((bill.amount - amount_f1), 2)
+
+        # Creating a pdf obj
         pdf = FPDF(orientation='p', unit='pt', format='A4')
         pdf.add_page()
+
+        # Adding image to the pdf page
+        pdf.image('images.jpg', w=30, h=30)
 
         # Setting labels
         pdf.set_font(family='Times', size=24, style='B')
@@ -54,22 +62,20 @@ class PdfReport:
 
         # Info for the first flatmate
         pdf.set_font(family='Times', size=15)
-        amount_f1 = flatmate1.pays(bill, flatmate2)
-        amount_f2 = bill.amount - amount_f1
-        pdf.cell(w=100, h=40, txt=f"{flatmate1.name}", border=1, align='C')
-        pdf.cell(w=150, h=40, txt=f"{flatmate1.days_stayed_home}", border=1, align='C')
+        pdf.cell(w=100, h=40, txt=flatmate1.name, border=1, align='C')
+        pdf.cell(w=150, h=40, txt=str(flatmate1.days_stayed_home), border=1, align='C')
         pdf.cell(w=0, h=40, txt=f"{amount_f1}$", border=1, align='C', ln=1)
 
         # Info for the Second flatmate
-        pdf.cell(w=100, h=40, txt=f"{flatmate2.name}", border=1, align='C')
-        pdf.cell(w=150, h=40, txt=f"{flatmate2.days_stayed_home}", border=1, align='C')
+        pdf.cell(w=100, h=40, txt=flatmate2.name, border=1, align='C')
+        pdf.cell(w=150, h=40, txt=str(flatmate2.days_stayed_home), border=1, align='C')
         pdf.cell(w=0, h=40, txt=f"{amount_f2}$", border=1, align='C')
 
         pdf.output(self.filename)
 
 
-some_bill = Bill(amount=200, period='April 2023')
-flatemate1 = Flatmate('Marco', 15)
+some_bill = Bill(amount=120, period='April 2023')
+flatemate1 = Flatmate('Marco', 20)
 flatemate2 = Flatmate('Rose', 25)
 
 report = PdfReport('bill.pdf')
