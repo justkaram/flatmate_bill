@@ -46,9 +46,6 @@ class PdfReport:
         pdf = FPDF(orientation='p', unit='pt', format='A4')
         pdf.add_page()
 
-        # Adding image to the pdf page
-        pdf.image('images.jpg', w=30, h=30)
-
         # Setting labels
         pdf.set_font(family='Times', size=24, style='B')
         pdf.cell(w=0, h=150, txt="Flatmates Bill", border=1, align="C", ln=1)
