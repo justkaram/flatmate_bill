@@ -19,8 +19,8 @@ class Flatmate:
         self.name = name
         self.days_stayed_home = days_stayed_home
 
-    def pays(self, bill, flatmate2):
-        formula = self.days_stayed_home / (self.days_stayed_home + flatmate2.days_stayed_home)
+    def pays(self, bill, second_flatmate):
+        formula = self.days_stayed_home / (self.days_stayed_home + second_flatmate.days_stayed_home)
         to_pay = bill.amount * formula
         return to_pay
 
