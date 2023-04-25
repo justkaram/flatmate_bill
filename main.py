@@ -1,5 +1,6 @@
 from flat import Bill, Flatmate
 from reports import PdfReport
+from reports import FileShare
 
 # Bill Info
 user_pill = float(input('Hi !, Enter the bill amount: '))
@@ -25,3 +26,7 @@ print(f'{flatmate_2.name} pays: {round(flatmate_2.pays(some_bill, flatmate_1), 2
 # Print pdf report for the bill
 report = PdfReport('bill.pdf')
 report.generate_pdf(flatmate_1, flatmate_2, some_bill)
+
+# Get a link so you can share the bill online
+fileshare = FileShare('bill.pdf')
+print(fileshare.get_link())

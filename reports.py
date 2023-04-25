@@ -1,6 +1,8 @@
+from filestack import Client
 from fpdf import FPDF
 import webbrowser
 import os
+
 
 class PdfReport:
     """
@@ -42,6 +44,23 @@ class PdfReport:
         pdf.cell(w=150, h=40, txt=str(flatmate2.days_stayed_home), border=1, align='C')
         pdf.cell(w=0, h=40, txt=f"{amount_f2}$", border=1, align='C')
 
+        # Change directory to output-files, generate and open in web
         os.chdir('output_files')
         pdf.output(self.filename)
         webbrowser.open(self.filename)
+
+
+class FileShare:
+    """
+    Generate an online link for the pdf report using file-stack,
+    the default api-key may expire soon, so it's better to use your own api-key.
+    """
+
+    def __init__(self, file_name, api_key='AqiHXdRzhT0aW9n3FOeVDz'):
+        self.api_key = api_key
+        self.file_name = file_name
+
+    def get_link(self):
+        client = Client(apikey=self.api_key)
+        upload = client.upload(filepath=f'{os.curdir}/{self.file_name}')
+        return upload.url
