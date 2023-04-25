@@ -1,6 +1,6 @@
 from fpdf import FPDF
 import webbrowser
-
+import os
 
 class PdfReport:
     """
@@ -42,5 +42,6 @@ class PdfReport:
         pdf.cell(w=150, h=40, txt=str(flatmate2.days_stayed_home), border=1, align='C')
         pdf.cell(w=0, h=40, txt=f"{amount_f2}$", border=1, align='C')
 
+        os.chdir('output_files')
         pdf.output(self.filename)
         webbrowser.open(self.filename)
