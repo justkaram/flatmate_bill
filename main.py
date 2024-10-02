@@ -1,6 +1,5 @@
 from flat import Bill, Flatmate
-from reports import PdfReport
-from reports import FileShare
+from reports import PdfReport, FileShare
 
 # Bill Info
 user_pill = float(input('Hi !, Enter the bill amount: '))
